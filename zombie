@@ -1,0 +1,46 @@
+1) 코드 작성
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main ()
+{
+  pid_t child_pid;
+  child_pid = fork (); 
+  if (child_pid > 0) {
+     sleep (60);        
+   }
+  else {                   
+     exit (0); 
+ }
+  return 0;
+}
+
+*fork()를 호출하여 자식 프로세스를 생성
+*fork 반환값이 pid > 0 이면 부모 프로세스
+               pid== 0 이면 자식 프로세스
+               pid < 0이면 fork 실패
+*sleep (60) : 부모 프로세스는 sleep(60)으로 60초 동안 아무 일 없이 대기
+* exit (0);  :자식 프로세스는 바로 종료, 부모가 
+              wait() 계열 함수로 자식의 종료 상태를 수거하지 않기 때문
+
+
+2)컴파일 하기
+gcc zombie.c -o zombie
+
+3)실행 하기
+./zombie &
+./zombie &
+./zombie &
+
+4) 프로세스 확인 하기
+ps -e -o pid,ppid,stat,cmd
+
+5) 좀비프로세스 죽이기
+ps -ef | grep defunct | egrep -v grep | awk '{print $3}' | xargs kill -9
+
+ps -ef	                     시스템의 모든 프로세스를 상세히 출력
+grep defunct	               출력된 프로세스 중에서 defunct(좀비 프로세스)라는 문자열이 포함된 줄만 필터링
+egrep -v grep	grep defunct   명령 자체도 결과에 포함되므로, 해당 줄 제거
+awk '{print $3}'	           각 줄에서 3번째 필드 (PPID, 부모 PID)를 출력.
+xargs kill -9	               추출된 부모 PID에 대해 강제로 종료 시그널(SIGKILL, -9)을 보냄 
