@@ -53,4 +53,35 @@ ResilientStorage  :	고가용성 스토리지 관련 패키지
  - 서명 확인을 통해 패키지 무결성 검증
  - gpgcheck=1 : 패키지 서명 확인 (gpgkey가 반드시 있어야 함, GPG키가 기록된 저장소의 URL을 지정되어 있어야 함)
    gpgcheck=0 : 패키지 서명 확인 안함
-   
+
+
+-----
+[BaseOS]
+name=CentOS-$releasever - Base
+baseurl=https://archive.kernel.org/centos-vault/8.0.1905/BaseOS/x86_64/os/
+	  http://linuxsoft.cern.ch/centos-vault/8.0.1905/BaseOS/x86_64/os/
+gpgcheck=0
+
+[AppStream]
+name=CentOS-$releasever - AppStream
+baseurl=https://archive.kernel.org/centos-vault/8.0.1905/AppStream/x86_64/os/
+	  http://linuxsoft.cern.ch/centos-vault/8.0.1905/AppStream/x86_64/os/
+gpgcheck=0
+
+[extras]
+name=CentOS-$releasever - Extras
+baseurl=https://archive.kernel.org/centos-vault/8.0.1905/extras/x86_64/os/
+	  http://linuxsoft.cern.ch/centos-vault/8.0.1905/extras/x86_64/os/
+gpgcheck=0
+
+[centosplus]
+name=CentOS-$releasever - Plus
+baseurl=https://archive.kernel.org/centos-vault/8.0.1905/centosplus/x86_64/os/
+	  http://linuxsoft.cern.ch/centos-vault/8.0.1905/centosplus/x86_64/os/
+gpgcheck=0
+
+[PowerTools]
+name=CentOS-$releasever - PowerTools
+baseurl=https://archive.kernel.org/centos-vault/8.0.1905/PowerTools/x86_64/os/
+	  http://linuxsoft.cern.ch/centos-vault/8.0.1905/PowerTools/x86_64/os/
+gpgcheck=0
